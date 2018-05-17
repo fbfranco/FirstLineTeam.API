@@ -1,10 +1,9 @@
 ﻿using FirstLineTeam.CORE.Models;
 using System.Data.Entity;
-using System.Threading.Tasks;
 
 namespace FirstLineTeam.DATA.Config
 {
-    class FirstLineTeamDbContext : DbContext
+    public class FirstLineTeamDbContext : DbContext
     {
         //Config Data Base
         public FirstLineTeamDbContext() :base("DefaultConnection"){}
@@ -16,7 +15,7 @@ namespace FirstLineTeam.DATA.Config
         public DbSet<ProjectPhase> ProjectPhase { get; set; }
         public DbSet<CheckListTask> CheckListTask { get; set; }
         public DbSet<Feedback> Feedback { get; set; }
-        public DbSet<Task> Task { get; set; }
+        public DbSet<Taskk> Task { get; set; }
 
         //Modeling tables
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

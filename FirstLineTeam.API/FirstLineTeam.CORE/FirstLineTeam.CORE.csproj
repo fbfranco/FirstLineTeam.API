@@ -40,6 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICheckListTaskRespository.cs" />
+    <Compile Include="Interfaces\IClientRepository.cs" />
+    <Compile Include="Interfaces\IDeveloperRepository.cs" />
+    <Compile Include="Interfaces\IFeedbackRepository.cs" />
+    <Compile Include="Interfaces\IProjectPhase.cs" />
+    <Compile Include="Interfaces\IProjectRepository.cs" />
+    <Compile Include="Interfaces\ITaskRepository.cs" />
     <Compile Include="Models\CheckListTask.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Developer.cs" />
@@ -50,8 +57,6 @@
     <Compile Include="Models\Taskk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
