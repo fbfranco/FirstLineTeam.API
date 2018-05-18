@@ -10,6 +10,6 @@ namespace FirstLineTeam.CORE.Interfaces
         void Delete(int id);
 
         IEnumerable<Client> GetClients();
-        Client FindbyId(int? Id);
+        Client FindbyId(int Id);
     }
 }

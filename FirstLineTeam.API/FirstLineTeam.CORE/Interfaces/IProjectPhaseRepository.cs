@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FirstLineTeam.CORE.Interfaces
 {
-    public interface IProjectPhase
+    public interface IProjectPhaseRepository
     {
         void Create(ProjectPhase projectPhase);
         void Update(ProjectPhase projectPhase);

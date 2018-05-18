@@ -1,5 +1,6 @@
 ﻿using FirstLineTeam.CORE.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FirstLineTeam.CORE.Interfaces
 {
@@ -9,7 +10,7 @@ namespace FirstLineTeam.CORE.Interfaces
         void Update(Project project);
         void Delete(int id);
 
-        IEnumerable<Project> GetProjects();
-        Project FindbyId(int Id);
+        Task<IEnumerable<Project>> GetProjects();
+        Task<Project> FindbyId(int Id);
     }
 }

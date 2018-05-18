@@ -50,7 +50,9 @@
     <Compile Include="Config\FirstLineTeamDbContext.cs" />
     <Compile Include="Config\InitializableDB.cs" />
     <Compile Include="Persistens\ClientRepository.cs" />
+    <Compile Include="Persistens\DeveloperRepository.cs" />
     <Compile Include="Persistens\FeedbackRepository.cs" />
+    <Compile Include="Persistens\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
