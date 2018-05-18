@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using FirstLineTeam.CORE.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FirstLineTeam.CORE.Interfaces
 {
     public interface ITaskRepository
     {
-        void Create(Task task);
-        void Update(Task task);
+        void Create(Taskk task);
+        void Update(Taskk task);
         void Delete(int id);
 
-        IEnumerable<Task> GetTasks();
-        Task FindbyId(int Id);
+        Task<IEnumerable<Taskk>> GetTasks();
+        Taskk FindbyId(int Id);
     }
 }

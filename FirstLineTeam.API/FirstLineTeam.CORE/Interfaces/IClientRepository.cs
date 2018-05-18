@@ -1,5 +1,6 @@
 ﻿using FirstLineTeam.CORE.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FirstLineTeam.CORE.Interfaces
 {
@@ -9,7 +10,7 @@ namespace FirstLineTeam.CORE.Interfaces
         void Update(Client client);
         void Delete(int id);
 
-        IEnumerable<Client> GetClients();
+        Task<IEnumerable<Client>> GetClients();
         Client FindbyId(int Id);
     }
 }

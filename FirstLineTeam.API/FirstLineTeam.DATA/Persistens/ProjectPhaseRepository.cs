@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace FirstLineTeam.DATA.Persistens
 {
-    public class FeedbackRepository : IFeedbackRepository
+    public class ProjectPhaseRepository : IProjectPhaseRepository
     {
         FirstLineTeamDbContext Context = new FirstLineTeamDbContext();
 
-        public async void Create(Feedback Feedback)
+        public async void Create(ProjectPhase ProjectPhase)
         {
             try
             {
                 using (Context)
                 {
-                    Context.Feedback.Add(Feedback);
+                    Context.ProjectPhase.Add(ProjectPhase);
                     await Context.SaveChangesAsync();
                 }
             }
@@ -28,15 +28,16 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public async void Update(Feedback Feedback)
+        public async void Update(ProjectPhase ProjectPhase)
         {
             try
             {
                 using (Context)
                 {
-                    var update = FindbyId(Feedback.IdFeedback);
-                    update.Comment = Feedback.Comment;
-                    update.DateRequest = Feedback.DateRequest;;
+                    var update = FindbyId(ProjectPhase.IdProjectPhase);
+                    update.NamePhase = ProjectPhase.NamePhase;
+                    update.DescriptionPhase = ProjectPhase.DescriptionPhase;
+                    update.EstimatedDate = ProjectPhase.EstimatedDate;
                     await Context.SaveChangesAsync();
                 }
             }
@@ -52,7 +53,7 @@ namespace FirstLineTeam.DATA.Persistens
                 using (Context)
                 {
                     var remove = FindbyId(id);
-                    Context.Feedback.Remove(remove);
+                    Context.ProjectPhase.Remove(remove);
                     await Context.SaveChangesAsync();
                 }
             }
@@ -61,18 +62,21 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public Feedback FindbyId(int Id)
+        public ProjectPhase FindbyId(int Id)
         {
             using (Context)
             {
-                var result = Context.Feedback.Where(x => x.IdFeedback == Id).FirstOrDefault();
+                var result = Context.ProjectPhase.Where(x => x.IdProjectPhase == Id).FirstOrDefault();
                 return result;
             }
         }
-        public async Task<IEnumerable<Feedback>> GetFeedbacks()
+        public async Task<IEnumerable<ProjectPhase>> GetProjectPhases()
         {
-            var result = await Context.Feedback.Take(100).ToListAsync();
-            return result;
+            using (Context)
+            {
+                var result = await Context.ProjectPhase.Take(100).ToListAsync();
+                return result;
+            }
         }
     }
 }

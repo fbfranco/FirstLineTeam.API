@@ -6,11 +6,11 @@ namespace FirstLineTeam.CORE.Interfaces
 {
     public interface IProjectRepository
     {
-        void Create(Project project);
+        Task Create(Project project);
         void Update(Project project);
         void Delete(int id);
 
         Task<IEnumerable<Project>> GetProjects();
-        Task<Project> FindbyId(int Id);
+        Project FindbyId(int Id);
     }
 }

@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FirstLineTeam.DATA.Persistens
@@ -15,13 +13,15 @@ namespace FirstLineTeam.DATA.Persistens
     {
         FirstLineTeamDbContext Context = new FirstLineTeamDbContext();
 
-        public async void Create(Project Project)
+        public async Task Create(Project Project)
         {
             try
             {
+                using (Context)
+                {
                     Context.Project.Add(Project);
                     await Context.SaveChangesAsync();
-                    Context.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -32,13 +32,15 @@ namespace FirstLineTeam.DATA.Persistens
         {
             try
             {
+                using (Context)
+                {
                     var update = FindbyId(Project.IdProject);
                     update.NameProject = Project.NameProject;
                     update.IdClient = Project.IdClient;
                     update.IdDeveloper = Project.IdDeveloper;
 
                     await Context.SaveChangesAsync();
-                    Context.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -49,21 +51,26 @@ namespace FirstLineTeam.DATA.Persistens
         {
             try
             {
-                var remove = FindbyId(id);
-                Context.Project.Remove(remove);
-                await Context.SaveChangesAsync();
-                Context.Dispose();
+                using (Context)
+                {
+                    var remove = FindbyId(id);
+                    Context.Project.Remove(remove);
+                    await Context.SaveChangesAsync();
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex);
             }
         }
-        public async Task<Project> FindbyId(int Id)
+        public Project FindbyId(int Id)
         {
-            var result = await Context.Project.Where(x => x.IdProject == Id).FirstOrDefaultAsync();
-            Context.Dispose();
-            return result;
+            using (Context)
+            {
+                var result = Context.Project.Where(x => x.IdProject == Id).FirstOrDefault();
+                Context.Dispose();
+                return result;
+            }
         }
         public async Task<IEnumerable<Project>> GetProjects()
         {

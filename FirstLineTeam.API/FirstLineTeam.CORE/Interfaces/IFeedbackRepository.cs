@@ -1,5 +1,6 @@
 ﻿using FirstLineTeam.CORE.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FirstLineTeam.CORE.Interfaces
 {
@@ -9,7 +10,7 @@ namespace FirstLineTeam.CORE.Interfaces
         void Update(Feedback feedback);
         void Delete(int id);
 
-        IEnumerable<Feedback> GetFeedbacks();
+        Task<IEnumerable<Feedback>> GetFeedbacks();
         Feedback FindbyId(int Id);
     }
 }

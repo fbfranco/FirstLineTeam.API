@@ -6,14 +6,14 @@ using System.Web.Http;
 
 namespace FirstLineTeam.API.Controllers
 {
-    public class ClientsController : ApiController
+    public class TasksController : ApiController
     {
-        ClientRepository repo = new ClientRepository();
+        TaskRepository repo = new TaskRepository();
 
         // GET api/<controller>
-        public Task<IEnumerable<Client>> Get()
+        public Task<IEnumerable<Taskk>> Get()
         {
-            var result = repo.GetClients();
+            var result = repo.GetTasks();
             return result;
         }
 
@@ -29,7 +29,7 @@ namespace FirstLineTeam.API.Controllers
         }
 
         // POST api/<controller>
-        public IHttpActionResult Post([FromBody]Client model)
+        public IHttpActionResult Post([FromBody]Taskk model)
         {
             if (!ModelState.IsValid)
             {
@@ -40,9 +40,9 @@ namespace FirstLineTeam.API.Controllers
         }
 
         // PUT api/<controller>/5
-        public IHttpActionResult Put(int id, [FromBody]Client model)
+        public IHttpActionResult Put(int id, [FromBody]Taskk model)
         {
-            if (!ModelState.IsValid || id != model.IdClient)
+            if (!ModelState.IsValid || id != model.IdTask)
             {
                 return BadRequest(ModelState);
             }

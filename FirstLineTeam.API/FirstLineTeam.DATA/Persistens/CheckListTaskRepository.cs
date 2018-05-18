@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace FirstLineTeam.DATA.Persistens
 {
-    public class FeedbackRepository : IFeedbackRepository
+    public class CheckListTaskRepository : ICheckListTaskRespository
     {
         FirstLineTeamDbContext Context = new FirstLineTeamDbContext();
 
-        public async void Create(Feedback Feedback)
+        public async void Create(CheckListTask CheckListTask)
         {
             try
             {
                 using (Context)
                 {
-                    Context.Feedback.Add(Feedback);
+                    Context.CheckListTask.Add(CheckListTask);
                     await Context.SaveChangesAsync();
                 }
             }
@@ -28,15 +28,14 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public async void Update(Feedback Feedback)
+        public async void Update(CheckListTask CheckListTask)
         {
             try
             {
                 using (Context)
                 {
-                    var update = FindbyId(Feedback.IdFeedback);
-                    update.Comment = Feedback.Comment;
-                    update.DateRequest = Feedback.DateRequest;;
+                    var update = FindbyId(CheckListTask.IdCheckListTask);
+                    update.IdTask = CheckListTask.IdTask;
                     await Context.SaveChangesAsync();
                 }
             }
@@ -52,7 +51,7 @@ namespace FirstLineTeam.DATA.Persistens
                 using (Context)
                 {
                     var remove = FindbyId(id);
-                    Context.Feedback.Remove(remove);
+                    Context.CheckListTask.Remove(remove);
                     await Context.SaveChangesAsync();
                 }
             }
@@ -61,18 +60,21 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public Feedback FindbyId(int Id)
+        public CheckListTask FindbyId(int Id)
         {
             using (Context)
             {
-                var result = Context.Feedback.Where(x => x.IdFeedback == Id).FirstOrDefault();
+                var result = Context.CheckListTask.Where(x => x.IdCheckListTask == Id).FirstOrDefault();
                 return result;
             }
         }
-        public async Task<IEnumerable<Feedback>> GetFeedbacks()
+        public async Task<IEnumerable<CheckListTask>> GetCheckListTasks()
         {
-            var result = await Context.Feedback.Take(100).ToListAsync();
-            return result;
+            using (Context)
+            {
+                var result = await Context.CheckListTask.Take(100).ToListAsync();
+                return result;
+            }
         }
     }
 }

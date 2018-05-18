@@ -47,6 +47,7 @@
     <Compile Include="Interfaces\IProjectPhaseRepository.cs" />
     <Compile Include="Interfaces\IProjectRepository.cs" />
     <Compile Include="Interfaces\ITaskRepository.cs" />
+    <Compile Include="Interfaces\TaskIEnumerable.cs" />
     <Compile Include="Models\CheckListTask.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Developer.cs" />

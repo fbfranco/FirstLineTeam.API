@@ -3,8 +3,8 @@ using FirstLineTeam.CORE.Models;
 using FirstLineTeam.DATA.Config;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FirstLineTeam.DATA.Persistens
@@ -13,14 +13,14 @@ namespace FirstLineTeam.DATA.Persistens
     {
         FirstLineTeamDbContext Context = new FirstLineTeamDbContext();
 
-        public void Create(Developer Developer)
+        public async void Create(Developer Developer)
         {
             try
             {
-                using (Context = new FirstLineTeamDbContext())
+                using (Context)
                 {
                     Context.Developer.Add(Developer);
-                    Context.SaveChanges();
+                    await Context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
@@ -28,17 +28,17 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public void Update(Developer Developer)
+        public async void Update(Developer Developer)
         {
             try
             {
-                using (Context = new FirstLineTeamDbContext())
+                using (Context)
                 {
                     var update = FindbyId(Developer.IdDeveloper);
                     update.Names = Developer.Names;
                     update.LastName = Developer.LastName;
                     update.Telephone = Developer.Telephone;
-                    Context.SaveChanges();
+                    await Context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
@@ -46,14 +46,15 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public void Delete(int id)
+        public async void Delete(int id)
         {
             try
             {
-                using (Context = new FirstLineTeamDbContext())
+                using (Context)
                 {
                     var remove = FindbyId(id);
                     Context.Developer.Remove(remove);
+                    await Context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
@@ -63,13 +64,19 @@ namespace FirstLineTeam.DATA.Persistens
         }
         public Developer FindbyId(int Id)
         {
-            var result = Context.Developer.Where(x => x.IdDeveloper == Id).FirstOrDefault();
-            return result;
+            using (Context)
+            {
+                var result = Context.Developer.Where(x => x.IdDeveloper == Id).FirstOrDefault();
+                return result;
+            }
         }
-        public IEnumerable<Developer> GetDevelopers()
+        public async Task<IEnumerable<Developer>> GetDevelopers()
         {
-            var result = Context.Developer.Take(100).ToList();
-            return result;
+            using (Context)
+            {
+                var result = await Context.Developer.Take(100).ToListAsync();
+                return result;
+            }
         }
     }
 }
