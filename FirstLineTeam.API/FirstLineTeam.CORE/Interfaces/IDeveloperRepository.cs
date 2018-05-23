@@ -6,7 +6,7 @@ namespace FirstLineTeam.CORE.Interfaces
 {
     public interface IDeveloperRepository
     {
-        void Create(Developer Developer);
+        Task Create(Developer Developer);
         void Update(Developer Developer);
         void Delete(int id);
 

@@ -29,13 +29,13 @@ namespace FirstLineTeam.API.Controllers
         }
 
         // POST api/<controller>
-        public IHttpActionResult Post([FromBody]Developer model)
+        public async Task<IHttpActionResult> Post([FromBody]Developer model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            repo.Create(model);
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            await repo.Create(model);
             return Ok();
         }
 

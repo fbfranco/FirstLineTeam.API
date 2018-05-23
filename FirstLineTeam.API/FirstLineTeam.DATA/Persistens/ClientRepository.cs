@@ -11,13 +11,13 @@ namespace FirstLineTeam.DATA.Persistens
 {
     public class ClientRepository : IClientRepository
     {
-        FirstLineTeamDbContext Context = new FirstLineTeamDbContext();
+        FirstLineTeamDbContext Context;
         
-        public async void Create(Client client)
+        public async Task Create(Client client)
         {
             try
             {
-                using (Context)
+                using (Context = new FirstLineTeamDbContext())
                 {
                     Context.Client.Add(client);
                     await Context.SaveChangesAsync();
@@ -28,16 +28,18 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public async void Update(Client client)
+        public async Task Update(Client client)
         {
             try
             {
-                using (Context)
+                var update = await FindbyId(client.IdClient);
+                using (Context = new FirstLineTeamDbContext())
                 {
-                    var update = FindbyId(client.IdClient);
                     update.Names = client.Names;
                     update.LastName = client.LastName;
                     update.Telephone = client.Telephone;
+
+                    Context.Entry(update).State = EntityState.Modified;
                     await Context.SaveChangesAsync();
                 }
             }
@@ -46,13 +48,14 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             try
             {
-                using (Context)
+                var remove = await FindbyId(id);
+                using (Context = new FirstLineTeamDbContext())
                 {
-                    var remove = FindbyId(id);
+                    Context.Client.Attach(remove);
                     Context.Client.Remove(remove);
                     await Context.SaveChangesAsync();
                 }
@@ -62,17 +65,17 @@ namespace FirstLineTeam.DATA.Persistens
                 Console.Write(ex);
             }
         }
-        public Client FindbyId(int Id)
+        public async Task<Client> FindbyId(int Id)
         {
-            using (Context)
+            using (Context = new FirstLineTeamDbContext())
             {
-                var result = Context.Client.Where(x => x.IdClient == Id).FirstOrDefault();
+                var result = await Context.Client.Where(x => x.IdClient == Id).FirstOrDefaultAsync();
                 return result;
             }
         }
         public async Task<IEnumerable<Client>> GetClients()
         {
-            using (Context)
+            using (Context = new FirstLineTeamDbContext())
             {
                 var result = await Context.Client.Take(100).ToListAsync();
                 return result;

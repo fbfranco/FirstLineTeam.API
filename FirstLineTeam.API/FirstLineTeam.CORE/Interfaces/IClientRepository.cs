@@ -6,11 +6,11 @@ namespace FirstLineTeam.CORE.Interfaces
 {
     public interface IClientRepository
     {
-        void Create(Client client);
-        void Update(Client client);
-        void Delete(int id);
+        Task Create(Client client);
+        Task Update(Client client);
+        Task Delete(int id);
 
         Task<IEnumerable<Client>> GetClients();
-        Client FindbyId(int Id);
+        Task<Client> FindbyId(int Id);
     }
 }

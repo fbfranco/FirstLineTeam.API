@@ -13,7 +13,7 @@ namespace FirstLineTeam.DATA.Persistens
     {
         FirstLineTeamDbContext Context = new FirstLineTeamDbContext();
 
-        public async void Create(Developer Developer)
+        public async Task Create(Developer Developer)
         {
             try
             {
